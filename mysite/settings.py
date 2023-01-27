@@ -41,11 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_extensions',
+    'corsheaders',
+    'django_extensions',
+    'djoser',
+
+    'product.apps.ProductConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -54,7 +64,24 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 ROOT_URLCONF = 'mysite.urls'
+
+
+
+STRIPE_SECRET_KEY = 'sk_test_51MTY9CIsoTfkmXN4J0Y994K5jo8wkHHEJG78kxCfTfHmE3QkxK19nyrzvm5TTzgAQx5tSJv69kzcV9GQD9GcJf1000axGY0qlW'
+PAYMOB_SECRET_KEY = 'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SndjbTltYVd4bFgzQnJJam95TURJeU9ETXNJbTVoYldVaU9pSnBibWwwYVdGc0lpd2lZMnhoYzNNaU9pSk5aWEpqYUdGdWRDSjkuTWZVVTVLYUxfWVZXeElvMi1CbVczeHN6MmRlSjNDU1FwaVEtWTlOTWxORnJKV0ZsUWJfYlUwVUZiX2VFX0xhN3FHSzBmVjliZ0RRTG9XUnI2M2ZrUkE='
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_VERSIONING_CLASS':'rest_framework.versioning.NamespaceVersioning'
+}
+
+
 
 TEMPLATES = [
     {
@@ -89,6 +116,12 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -127,6 +160,10 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

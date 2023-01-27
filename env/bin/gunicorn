@@ -1,0 +1,8 @@
+#!/media/starlord/371f8ddc-515a-4d51-b068-b7b02120a380/starlord/repos/es_2.0/env/bin/python3
+# -*- coding: utf-8 -*-
+import re
+import sys
+from gunicorn.app.wsgiapp import run
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(run())
