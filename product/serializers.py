@@ -38,14 +38,12 @@ class ProductListSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mode
         'category_slug':'subcategory_category__slug',
     }
     url = serializers.SerializerMethodField()
-
+    images = ProductImagesSerializer(many=True)
     def get_url(self, obj):
         request = self.context.get('request')
         return request.build_absolute_uri(reverse('product-detail', kwargs={'category_slug': obj.subcategory.category.slug,
             'subcategory_slug': obj.subcategory.slug,
             'slug': obj.slug}))
-    images = ProductImagesSerializer(many=True)
-
     class Meta:
         model = Product
         fields = (
