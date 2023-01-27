@@ -14,6 +14,7 @@ subcategory_router.register(r'products',views.ProductViewset,basename='product')
 
 
 urlpatterns = [
+    path('latestProducts/',views.latestProducts),
     path(r'',include(router.urls)),
     path(r'',include(category_router.urls)),
     path(r'',include(subcategory_router.urls))
