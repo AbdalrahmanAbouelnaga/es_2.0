@@ -44,6 +44,7 @@ class ProductListSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mode
         return request.build_absolute_uri(reverse('product-detail', kwargs={'category_slug': obj.subcategory.category.slug,
             'subcategory_slug': obj.subcategory.slug,
             'slug': obj.slug}))
+    images = ProductImagesSerializer(many=True)
 
     class Meta:
         model = Product
