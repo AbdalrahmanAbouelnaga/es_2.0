@@ -6,19 +6,26 @@ from rest_framework.reverse import reverse
 
 
 
-class ProductImagesSerializer(serializers.HyperlinkedModelSerializer):
-    url = serializers.HyperlinkedIdentityField(view_name="product:product-detail")
+class ProductImagesSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+    thumbnail = serializers.SerializerMethodField()
+    def get_image(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.image.url)
+    def get_thumbnail(self,obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.thumbnail.url)
     class Meta:
         model = ProductImage
         fields = (
-            'url',
+            'id',
             'image',
             'thumbnail',
         )
     
     def create(self, validated_data):
         img = ProductImage.objects.create(**validated_data)
-        if not img.thumbnail:
+        if img.thumbnail.url is None:
             img.make_thumbnail()
         img.save()
         return img
@@ -45,6 +52,7 @@ class ProductListSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mode
             'title',
             'slug',
             'price',
+            'images'
         )
         lookup_field = 'slug'
         extra_kwargs = {
@@ -57,6 +65,7 @@ class ProductDetailSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mo
         'subcategory_slug': 'subcategory_slug',
         'category_slug':'subcategory_category__slug',
     }
+    images = ProductImagesSerializer(many=True)
     class Meta:
         model = Product
         fields = (
@@ -66,6 +75,7 @@ class ProductDetailSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mo
             'price',
             'subcategory',
             'description',
+            'images'
         )
         lookup_field = 'slug'
         extra_kwargs = {

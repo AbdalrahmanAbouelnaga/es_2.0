@@ -61,3 +61,6 @@ class ProductImage(models.Model):
 
         thumbnail = File(thumb_io,name=self.image.name)
         self.thumbnail = thumbnail
+    def save(self) -> None:
+        self.make_thumbnail()
+        return super().save()
