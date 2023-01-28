@@ -43,7 +43,7 @@ class Product(TitleSlugDescriptionModel,TimeStampedModel,models.Model):
     
     @property
     def category(self):
-        return self.sub_category.category
+        return self.subcategory.category
 
 
 class ProductImage(models.Model):

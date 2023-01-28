@@ -10,7 +10,7 @@ from .serializers import CategorySerializer,SubCategoryListSerializer,SubCategor
 @api_view(['GET'])
 def latestProducts(request):
     queryset = Product.objects.all().order_by('-created')
-    serializer = ProductListSerializer(queryset,many=True)
+    serializer = ProductListSerializer(queryset,many=True,context={'request': request})
     return Response(serializer.data,status=200)
 
 
