@@ -11,10 +11,10 @@ class ProductImagesSerializer(serializers.ModelSerializer):
     thumbnail = serializers.SerializerMethodField()
     def get_image(self, obj):
         request = self.context.get('request')
-        return request.build_absolute_uri(obj.image.url)
+        return request.build_absolute_uri(f'{obj.image.url}')
     def get_thumbnail(self,obj):
         request = self.context.get('request')
-        return request.build_absolute_uri(obj.thumbnail.url)
+        return request.build_absolute_uri(f'{obj.thumbnail.url}')
     class Meta:
         model = ProductImage
         fields = (
