@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'djoser',
 
     'product.apps.ProductConfig',
+    'order.apps.OrderConfig'
 ]
 
 MIDDLEWARE = [

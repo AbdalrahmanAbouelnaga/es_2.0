@@ -20,6 +20,9 @@ from django.conf.urls.static import static
 from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',include('user.urls')),
+    path('',include('order.urls')),
+    path('',include('djoser.urls.authtoken')),
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     path('',include('product.urls'))
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
