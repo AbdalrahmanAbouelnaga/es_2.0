@@ -47,6 +47,7 @@ class ProductListSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mode
     class Meta:
         model = Product
         fields = (
+            'id',
             'url',
             'title',
             'slug',
