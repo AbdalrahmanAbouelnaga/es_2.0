@@ -139,6 +139,9 @@ class SubCategoryListSerializer(NestedHyperlinkedModelSerializer):
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     subCategories = SubCategoryListSerializer(many=True)
+    url = serializers.SerializerMethodField()
+    def get_url(self, obj):
+        return reverse('category-detail', kwargs={'slug': obj.slug})
     class Meta:
         model = Category
         fields = (
