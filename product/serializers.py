@@ -42,9 +42,9 @@ class ProductListSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mode
     images = ProductImagesSerializer(many=True)
     def get_url(self, obj):
         request = self.context.get('request')
-        return request.build_absolute_uri(reverse('product-detail', kwargs={'category_slug': obj.subcategory.category.slug,
+        return reverse('product-detail', kwargs={'category_slug': obj.subcategory.category.slug,
             'subcategory_slug': obj.subcategory.slug,
-            'slug': obj.slug}))
+            'slug': obj.slug})
     
     def get_description(self,obj):
         desc = obj.description[0:75]
@@ -99,8 +99,8 @@ class SubCategoryDetailSerializer(NestedHyperlinkedModelSerializer):
 
     def get_url(self, obj):
         request = self.context.get('request')
-        return request.build_absolute_uri(reverse('subcategory-detail', kwargs={'category_slug': obj.category.slug,
-            'slug': obj.slug}))
+        return reverse('subcategory-detail', kwargs={'category_slug': obj.category.slug,
+            'slug': obj.slug})
     class Meta:
         model = Subcategory
         fields = (
@@ -122,8 +122,8 @@ class SubCategoryListSerializer(NestedHyperlinkedModelSerializer):
 
     def get_url(self, obj):
         request = self.context.get('request')
-        return request.build_absolute_uri(reverse('subcategory-detail', kwargs={'category_slug': obj.category.slug,
-            'slug': obj.slug}))
+        return reverse('subcategory-detail', kwargs={'category_slug': obj.category.slug,
+            'slug': obj.slug})
     class Meta:
         model = Subcategory
         fields = (
