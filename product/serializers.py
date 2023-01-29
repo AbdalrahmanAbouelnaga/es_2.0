@@ -32,7 +32,7 @@ class ProductImagesSerializer(serializers.ModelSerializer):
 
 
 
-class ProductListSerializer(serializers.ModelSerializer):
+class ProductListSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.ModelSerializer):
     parent_lookup_kwargs = {
         'subcategory_slug': 'subcategory_slug',
         'category_slug':'subcategory_category__slug',
@@ -81,6 +81,7 @@ class ProductDetailSerializer(NestedCreateMixin,NestedUpdateMixin,serializers.Mo
     class Meta:
         model = Product
         fields = (
+            'url',
             'id',
             'title',
             'slug',
