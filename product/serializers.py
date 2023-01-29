@@ -101,11 +101,18 @@ class SubCategoryDetailSerializer(NestedHyperlinkedModelSerializer):
         request = self.context.get('request')
         return reverse('subcategory-detail', kwargs={'category_slug': obj.category.slug,
             'slug': obj.slug})
+
+    category = serializers.SerializerMethodField()
+    def get_category(self,obj):
+        return obj.category.title
+
+        
     class Meta:
         model = Subcategory
         fields = (
             'url',
             'title',
+            'category',
             'products'
         )
         lookup_field = 'subcategory_slug'
@@ -124,18 +131,11 @@ class SubCategoryListSerializer(NestedHyperlinkedModelSerializer):
         request = self.context.get('request')
         return reverse('subcategory-detail', kwargs={'category_slug': obj.category.slug,
             'slug': obj.slug})
-
-    category = serializers.SerializerMethodField()
-    def get_category(self,obj):
-        return obj.category.title
-
-        
     class Meta:
         model = Subcategory
         fields = (
             'url',
             'title',
-            'category'
         )
         lookup_field = 'slug'
         extra_kwargs = {
